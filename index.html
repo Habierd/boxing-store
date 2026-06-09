@@ -1,13 +1,633 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boxing Store</title>
-  <link rel="stylesheet" href="./css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BoxingStore | Domina el Ring - Equipo Profesional</title>
+  <meta name="description" content="Guantes, cascos y botas de boxeo premium. El mejor equipo para entrenamiento, técnica y sparring. Envíos a toda Colombia." />
+  <link rel="icon" href="favicon.ico" />
+
+  <!-- Tipografía Premium de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       VARIABLES Y RESET PREMIUM
+       ========================================= */
+    :root {
+      --bg: #030303;
+      --bg-surface: #0a0a0c;
+      --bg-card: #121215;
+      --text: #ffffff;
+      --text-muted: #9ca3af;
+      --border: #27272a;
+      --primary: #dc2626;      /* Rojo agresivo */
+      --primary-hover: #b91c1c;
+      --accent: #f59e0b;       /* Dorado premium */
+      --success: #16a34a;
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      --glow-red: 0 0 20px rgba(220, 38, 38, 0.4);
+      --font-heading: 'Oswald', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --radius: 8px;
+      --max-width: 1250px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font-family: inherit; border: none; outline: none; }
+    button { cursor: pointer; background: none; }
+    img { max-width: 100%; display: block; }
+    
+    .container { width: min(100% - 2.5rem, var(--max-width)); margin-inline: auto; }
+
+    /* =========================================
+       HEADER
+       ========================================= */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 0; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .brand-logo { height: 45px; width: auto; object-fit: contain; }
+    
+    .main-nav { display: flex; gap: 2.5rem; }
+    .main-nav a { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); transition: color var(--transition); }
+    .main-nav a:hover { color: var(--text); }
+
+    .header-actions { display: flex; align-items: center; gap: 1rem; }
+    .cart-btn { background: var(--primary); color: white; display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: 999px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; text-transform: uppercase; transition: all var(--transition); letter-spacing: 0.05em; }
+    .cart-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--glow-red); }
+    .cart-count { background: white; color: var(--primary); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-family: var(--font-body); font-size: 0.85rem; font-weight: 800; }
+
+    /* =========================================
+       HERO (IMPACTO DE VENTAS)
+       ========================================= */
+    .hero { padding: 6rem 0 5rem; min-height: 85vh; display: flex; align-items: center; position: relative; overflow: hidden; background: radial-gradient(circle at 70% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 60%); border-bottom: 1px solid var(--border); }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+    
+    .hero-content .eyebrow { display: inline-block; background: rgba(245, 158, 11, 0.15); color: var(--accent); padding: 0.4rem 1rem; border-radius: 999px; font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .hero-content h1 { font-family: var(--font-heading); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.05; margin-bottom: 1.5rem; text-transform: uppercase; font-weight: 900; letter-spacing: -0.01em; }
+    .hero-content h1 span { color: var(--primary); text-shadow: var(--glow-red); }
+    .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 540px; font-weight: 400; }
+    
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2.5rem; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; border-radius: var(--radius); transition: all var(--transition); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: 1px solid #f87171; }
+    .btn-primary:hover { box-shadow: var(--glow-red); transform: translateY(-2px); }
+    .btn-outline { border: 2px solid var(--border); color: var(--text); background: rgba(255,255,255,0.03); }
+    .btn-outline:hover { border-color: var(--text); background: var(--text); color: var(--bg); transform: translateY(-2px); }
+    .btn-group { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    .hero-image-wrap { position: relative; display: flex; justify-content: center; }
+    .hero-image-wrap::after { content: ''; position: absolute; bottom: -20px; width: 60%; height: 20px; background: rgba(0,0,0,0.8); filter: blur(15px); border-radius: 50%; }
+    .hero-image-wrap img { max-width: 500px; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 25px 35px rgba(0,0,0,0.6)); z-index: 2; position: relative; }
+    @keyframes float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+
+    /* =========================================
+       SECCIONES
+       ========================================= */
+    .section { padding: 6rem 0; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header p.eyebrow { color: var(--accent); font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .section-header h2 { font-family: var(--font-heading); font-size: 3rem; text-transform: uppercase; font-weight: 900; }
+
+    /* =========================================
+       CATÁLOGO PREMIUM
+       ========================================= */
+    .filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3.5rem; flex-wrap: wrap; }
+    .filter-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); padding: 0.8rem 2rem; border-radius: 999px; font-family: var(--font-heading); font-weight: 600; text-transform: uppercase; font-size: 1rem; transition: all var(--transition); letter-spacing: 0.05em; }
+    .filter-btn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+    .filter-btn.active { background: var(--primary); border-color: #f87171; color: white; box-shadow: var(--glow-red); }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+    .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); position: relative; }
+    .product-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+    .product-card.hidden { display: none; }
+    
+    .product-badge { position: absolute; top: 1rem; left: 1rem; background: var(--accent); color: #000; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 4px; text-transform: uppercase; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    
+    .product-img { background: radial-gradient(circle at center, #1f1f24 0%, #0a0a0c 100%); padding: 2.5rem; display: flex; justify-content: center; align-items: center; height: 280px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.02); }
+    .product-img img { max-height: 100%; object-fit: contain; transition: transform var(--transition); filter: drop-shadow(0 15px 20px rgba(0,0,0,0.5)); }
+    .product-card:hover .product-img img { transform: scale(1.1) rotate(3deg); }
+    
+    .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .product-brand { color: var(--text-muted); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; margin-bottom: 0.3rem; letter-spacing: 0.05em; }
+    .product-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.8rem; line-height: 1.3; color: var(--text); }
+    
+    .price-wrap { margin-top: auto; margin-bottom: 1.2rem; display: flex; align-items: center; }
+    .product-price { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--text); }
+    .product-price.out-of-stock { color: var(--primary); font-size: 1.2rem; }
+    
+    .add-to-cart { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); padding: 1rem; border-radius: 6px; font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; font-size: 1rem; transition: all var(--transition); letter-spacing: 0.05em; }
+    .add-to-cart:hover:not(.disabled) { background: var(--primary); border-color: #f87171; color: white; box-shadow: var(--glow-red); }
+    .add-to-cart.disabled { opacity: 0.5; cursor: not-allowed; background: rgba(255,0,0,0.05); color: var(--primary); border-color: rgba(220,38,38,0.3); }
+
+    /* =========================================
+       POR QUÉ ELEGIRNOS (VENTAS)
+       ========================================= */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-features { list-style: none; margin-top: 2rem; display: grid; gap: 1.2rem; }
+    .about-features li { display: flex; align-items: flex-start; gap: 1rem; font-size: 1.1rem; color: var(--text-muted); }
+    .about-features li strong { color: var(--text); display: block; margin-bottom: 0.2rem; }
+    .about-icon { font-size: 1.5rem; background: rgba(255,255,255,0.05); padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); }
+    
+    /* =========================================
+       CONTACTO
+       ========================================= */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .contact-info { padding: 4rem 3rem; background: linear-gradient(135deg, rgba(220,38,38,0.05), transparent); border-right: 1px solid var(--border); }
+    .contact-info p { color: var(--text-muted); margin-bottom: 1rem; font-size: 1.05rem; }
+    .contact-info strong { color: var(--text); }
+    
+    .wa-btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; gap: 0.8rem; background: var(--success); color: white; padding: 1.2rem; border-radius: 8px; font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 2.5rem; transition: all var(--transition); letter-spacing: 0.05em; box-shadow: 0 10px 20px rgba(22, 163, 74, 0.3); }
+    .wa-btn:hover { background: #15803d; transform: translateY(-2px); box-shadow: 0 15px 25px rgba(22, 163, 74, 0.4); }
+    .wa-btn img { width: 28px; height: 28px; }
+    
+    .contact-form { padding: 4rem 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.6rem; }
+    .form-group label { font-family: var(--font-heading); font-size: 1rem; font-weight: 500; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; }
+    .form-group input, .form-group textarea { background: rgba(0,0,0,0.5); border: 1px solid var(--border); padding: 1.2rem; border-radius: 6px; color: var(--text); font-size: 1rem; transition: border-color var(--transition); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+    .form-status { font-weight: 600; color: var(--success); min-height: 24px; }
+
+    /* =========================================
+       FOOTER
+       ========================================= */
+    .site-footer { border-top: 1px solid var(--border); padding: 4rem 0; text-align: center; background: #000; }
+    .site-footer img { height: 50px; margin: 0 auto 1.5rem; opacity: 0.8; }
+    .site-footer p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* =========================================
+       CARRITO LATERAL
+       ========================================= */
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+    .cart-overlay.show { opacity: 1; visibility: visible; }
+    
+    .cart-sidebar { position: fixed; top: 0; right: -500px; width: 100%; max-width: 450px; height: 100vh; background: var(--bg-surface); z-index: 1001; display: flex; flex-direction: column; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 1px solid var(--border); box-shadow: -10px 0 40px rgba(0,0,0,0.8); }
+    .cart-sidebar.open { right: 0; }
+    
+    .cart-header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #000; }
+    .cart-header h2 { font-family: var(--font-heading); text-transform: uppercase; font-size: 1.6rem; margin: 0; }
+    .close-cart { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.2rem; display: grid; place-items: center; transition: all 0.2s; }
+    .close-cart:hover { background: var(--primary); border-color: var(--primary); }
+    
+    .cart-items { flex: 1; overflow-y: auto; padding: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .empty-cart { text-align: center; color: var(--text-muted); padding: 4rem 0; }
+    
+    .cart-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 1.2rem; align-items: center; background: var(--bg-card); padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border); position: relative; }
+    .cart-item img { background: #1f1f24; padding: 0.5rem; border-radius: 6px; }
+    .cart-item-info h4 { font-size: 0.95rem; margin-bottom: 0.3rem; font-weight: 600; }
+    .cart-item-info p { color: var(--text); font-family: var(--font-heading); font-weight: 500; font-size: 1rem; }
+    .qty-controls { display: flex; align-items: center; gap: 0.8rem; margin-top: 0.6rem; background: rgba(0,0,0,0.5); width: fit-content; padding: 0.2rem; border-radius: 6px; border: 1px solid var(--border); }
+    .qty-btn { width: 28px; height: 28px; color: white; display: grid; place-items: center; font-weight: bold; font-size: 1.2rem; border-radius: 4px; }
+    .qty-btn:hover { background: rgba(255,255,255,0.1); }
+    .qty-display { font-weight: 600; font-size: 0.9rem; min-width: 16px; text-align: center; }
+    .cart-item-remove { position: absolute; top: 1rem; right: 1rem; color: var(--text-muted); }
+    .cart-item-remove:hover { color: var(--primary); }
+    
+    .cart-footer { padding: 2rem; border-top: 1px solid var(--border); background: #000; }
+    .cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .cart-total span:first-child { font-family: var(--font-heading); font-size: 1.2rem; text-transform: uppercase; color: var(--text-muted); }
+    .cart-total span:last-child { color: var(--text); font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; }
+    .checkout-btn { width: 100%; display: flex; justify-content: center; padding: 1.2rem; background: var(--success); color: white; font-family: var(--font-heading); text-transform: uppercase; font-size: 1.1rem; font-weight: 700; border-radius: 8px; margin-bottom: 1rem; transition: all 0.2s; letter-spacing: 0.05em; }
+    .checkout-btn:hover { background: #15803d; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(22, 163, 74, 0.3); }
+    .clear-cart-btn { width: 100%; padding: 1rem; background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; font-family: var(--font-heading); text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+    .clear-cart-btn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+
+    /* =========================================
+       FX ANIMATIONS
+       ========================================= */
+    .fx-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; }
+    .fx-overlay img { max-width: min(450px, 80vw); filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.6)); }
+    .fx-overlay.show { visibility: visible; animation: fxPop 0.8s ease forwards; }
+    @keyframes fxPop { 0% { opacity: 0; transform: scale(0.5) rotate(-15deg); } 20% { opacity: 1; transform: scale(1.15) rotate(8deg); } 70% { opacity: 1; transform: scale(1) rotate(0deg); } 100% { opacity: 0; transform: scale(1.05); } }
+
+    /* MOBILE MENÚ */
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; width: 44px; height: 44px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; align-items: center; justify-content: center; }
+    .menu-toggle span { width: 22px; height: 2px; background: white; transition: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .hero-grid, .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-content p { margin-inline: auto; }
+      .btn-group { justify-content: center; }
+      .about-features li { text-align: left; }
+      .contact-grid { display: flex; flex-direction: column; }
+      .contact-info { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 2rem; }
+      .contact-form { padding: 3rem 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .main-nav { position: absolute; top: 100%; left: 0; right: 0; background: #000; flex-direction: column; padding: 2rem; gap: 1.5rem; border-bottom: 1px solid var(--border); display: none; text-align: center; }
+      .main-nav.active { display: flex; }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .hero-content h1 { font-size: 2.8rem; }
+      .section { padding: 4rem 0; }
+    }
+  </style>
 </head>
 <body>
-  
-  <script src="./js/main.js"></script>
+
+  <!-- FX Overlays -->
+  <div id="fx-hit" class="fx-overlay"><img src="assets/images/fx/fx-boxing-glove-hit.webp" alt="Hit"></div>
+  <div id="fx-ko" class="fx-overlay"><img src="assets/images/fx/fx-ko.webp" alt="KO"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#">
+        <img src="assets/logo/logo.svg" alt="BoxingStore" class="brand-logo" onerror="this.onerror=null; this.src='assets/images/fx/fx-boxing-glove-hit.webp';" />
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Catálogo</a>
+        <a href="#nosotros">Por qué nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-btn" id="openCartBtn">
+          🛒 Mi Pedido
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">Equipo Profesional 2026</span>
+        <h1>Domina el ring. <span>No aceptes imitaciones.</span></h1>
+        <p>El verdadero poder nace de la disciplina. Equípate con guantes, cascos y botas diseñados para soportar el castigo de los entrenamientos más brutales. Marcas élite, rendimiento real.</p>
+        <div class="btn-group">
+          <a href="#productos" class="btn btn-primary">Comprar Ahora</a>
+          <a href="#contacto" class="btn btn-outline">Asesoría VIP</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="assets/images/fx/fx-boxing-glove-hit.webp" alt="Guante Profesional">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section class="section" id="productos">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Arsenal Disponible</p>
+        <h2>Selección de Campeonato</h2>
+      </div>
+
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">Ver Todo</button>
+        <button class="filter-btn" data-filter="guantes">Guantes</button>
+        <button class="filter-btn" data-filter="cascos">Protección</button>
+        <button class="filter-btn" data-filter="botas">Calzado</button>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="section" id="nosotros" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container about-grid">
+      <div>
+        <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+          <p class="eyebrow">Nuestra Filosofía</p>
+          <h2>Forjados en la disciplina</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 1.15rem; margin-bottom: 1.5rem;">En <strong>BoxingStore</strong> entendemos que el boxeo no es un juego, es una ciencia y un estilo de vida. Por eso no vendemos juguetes, vendemos armamento deportivo. Seleccionamos meticulosamente cada pieza de nuestro catálogo.</p>
+        
+        <ul class="about-features">
+          <li>
+            <div class="about-icon">🏆</div>
+            <div>
+              <strong>Calidad de Nivel Mundial</strong>
+              Distribución de marcas como Cleto Reyes, Venum, Ringside y más.
+            </div>
+          </li>
+          <li>
+            <div class="about-icon">🚀</div>
+            <div>
+              <strong>Logística Implacable</strong>
+              Despachos asegurados y rápidos a cualquier rincón de Colombia.
+            </div>
+          </li>
+          <li>
+            <div class="about-icon">🛡️</div>
+            <div>
+              <strong>Compra Protegida</strong>
+              Asesoría personalizada por WhatsApp para garantizar tu talla y peso ideal.
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div style="display: flex; justify-content: center;">
+        <img src="assets/logo/logo.svg" alt="BoxingStore Shield" style="max-width: 350px; opacity: 0.8; filter: drop-shadow(0 0 50px rgba(220,38,38,0.2));" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Soporte Táctico</p>
+        <h2>¿Dudas con tu equipo?</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3 style="font-family: var(--font-heading); font-size: 2rem; text-transform: uppercase; margin-bottom: 1rem;">Atención Directa</h3>
+          <p style="margin-bottom: 2rem;">¿No estás seguro de qué onzas elegir para sparring o qué talla de casco necesitas? Escríbenos directamente y un experto te asesorará.</p>
+          
+          <a href="https://wa.me/573112657848?text=Hola%20BoxingStore!%20Necesito%20asesor%C3%ADa%20con%20un%20equipo." class="wa-btn" target="_blank">
+            <img src="assets/icons/icon-whatsapp.svg" alt="WA" onerror="this.style.display='none'">
+            Contactar a un Experto
+          </a>
+          
+          <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem;">
+            <p><strong>Ubicación:</strong> Bogotá D.C., Colombia</p>
+            <p><strong>Operaciones:</strong> Lunes a Sábado - 9AM a 7PM</p>
+            <p><strong>Línea Directa:</strong> +57 311 265 7848</p>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label>Tu Nombre</label>
+            <input type="text" id="formName" required placeholder="Ingresa tu nombre completo">
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" id="formEmail" required placeholder="correo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label>Mensaje / Consulta</label>
+            <textarea id="formMessage" rows="5" required placeholder="¿Qué referencia o talla estás buscando?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">Enviar Mensaje</button>
+          <div id="formStatus" class="form-status"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <img src="assets/logo/logo.svg" alt="BoxingStore Logo" onerror="this.style.display='none'">
+      <p>&copy; <span id="yearSpan">2026</span> BoxingStore.cc - Equipamiento Táctico Deportivo.</p>
+    </div>
+  </footer>
+
+  <!-- CARRITO SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Arsenal Seleccionado</h2>
+      <button class="close-cart" id="closeCartBtn">✕</button>
+    </div>
+    
+    <div class="cart-items" id="cartItemsContainer">
+      <!-- Llenado por JS -->
+    </div>
+    
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Subtotal:</span>
+        <span id="cartTotalDisplay">$0 COP</span>
+      </div>
+      <a href="#" class="checkout-btn" id="checkoutBtn" target="_blank">Cerrar Pedido en WhatsApp</a>
+      <button class="clear-cart-btn" id="clearCartBtn">Vaciar Carrito</button>
+    </div>
+  </aside>
+
+  <!-- ======================== JAVASCRIPT ======================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // 1. BASE DE DATOS EXACTA CON PRECIOS Y AGOTADOS
+      const PRODUCTS = [
+        // BOTAS
+        { id: 23, name: "Botas Apex Negro Plata", brand: "Apex", price: 400000, category: "botas", image: "assets/images/products/botas-apex-negro-plata.png", badge: "Pro", outOfStock: false },
+        
+        // CASCOS
+        { id: 21, name: "Casco Rox Dorado Negro", brand: "Rox", price: 400000, category: "cascos", image: "assets/images/products/casco-rox-dorado-negro.png", badge: "Nuevo", outOfStock: false },
+        { id: 22, name: "Casco Rox Negro Dorado", brand: "Rox", price: 285000, category: "cascos", image: "assets/images/products/casco-rox-negro-dorado.png", badge: null, outOfStock: false },
+        
+        // GUANTES
+        { id: 1, name: "Guantes Cleto Reyes Azul", brand: "Cleto Reyes", price: 1400000, category: "guantes", image: "assets/images/products/guantes-cleto-reyes-azul.png", badge: "Premium", outOfStock: false },
+        { id: 2, name: "Guantes Green Hill Rojo", brand: "Green Hill", price: 270000, category: "guantes", image: "assets/images/products/guantes-green-hill-rojo.png", badge: null, outOfStock: false },
+        { id: 3, name: "Guantes Max MMA Rosa", brand: "Max MMA", price: 0, category: "guantes", image: "assets/images/products/guantes-max-mma-rosa.png", badge: null, outOfStock: true }, // AGOTADO
+        { id: 4, name: "Guantes Piscator Zone Rosa", brand: "Piscator", price: 0, category: "guantes", image: "assets/images/products/guantes-piscator-zone-rosa.png", badge: null, outOfStock: true }, // AGOTADO
+        { id: 5, name: "Guantes Ringside Blanco Rojo", brand: "Ringside", price: 380000, category: "guantes", image: "assets/images/products/guantes-ringside-blanco-rojo.png", badge: null, outOfStock: false },
+        { id: 6, name: "Guantes Ringside Dorado", brand: "Ringside", price: 380000, category: "guantes", image: "assets/images/products/guantes-ringside-dorado.png", badge: "Más Vendido", outOfStock: false },
+        { id: 7, name: "Guantes Ringside Dorado Negro", brand: "Ringside", price: 380000, category: "guantes", image: "assets/images/products/guantes-ringside-dorado-negro.png", badge: null, outOfStock: false },
+        { id: 8, name: "Guantes Ringside Negro", brand: "Ringside", price: 380000, category: "guantes", image: "assets/images/products/guantes-ringside-negro.png", badge: null, outOfStock: false },
+        { id: 9, name: "Guantes Ringside Negro Blanco", brand: "Ringside", price: 360000, category: "guantes", image: "assets/images/products/guantes-ringside-negro-blanco.png", badge: null, outOfStock: false },
+        { id: 10, name: "Guantes Ringside Negro Rojo", brand: "Ringside", price: 280000, category: "guantes", image: "assets/images/products/guantes-ringside-negro-rojo.png", badge: null, outOfStock: false },
+        { id: 11, name: "Guantes Ringside Rosa Negro", brand: "Ringside", price: 280000, category: "guantes", image: "assets/images/products/guantes-ringside-rosa-negro.png", badge: null, outOfStock: false },
+        { id: 12, name: "Guantes Ringside Verde Dorado", brand: "Ringside", price: 300000, category: "guantes", image: "assets/images/products/guantes-ringside-verde-dorado.png", badge: null, outOfStock: false },
+        { id: 13, name: "Guantes Rox Negro Fucsia", brand: "Rox", price: 260000, category: "guantes", image: "assets/images/products/guantes-rox-negro-fucsia.png", badge: null, outOfStock: false },
+        { id: 14, name: "Guantes Sanabul Negro", brand: "Sanabul", price: 250000, category: "guantes", image: "assets/images/products/guantes-sanabul-negro.png", badge: null, outOfStock: false },
+        { id: 15, name: "Guantes Twisto Blanco", brand: "Twisto", price: 250000, category: "guantes", image: "assets/images/products/guantes-twisto-blanco.png", badge: null, outOfStock: false },
+        { id: 16, name: "Guantes Twisto Negro Blanco", brand: "Twisto", price: 250000, category: "guantes", image: "assets/images/products/guantes-twisto-negro-blanco.png", badge: null, outOfStock: false },
+        { id: 17, name: "Guantes Twisto Rojo Blanco", brand: "Twisto", price: 250000, category: "guantes", image: "assets/images/products/guantes-twisto-rojo-blanco.png", badge: null, outOfStock: false },
+        { id: 18, name: "Guantes Venum Blanco", brand: "Venum", price: 300000, category: "guantes", image: "assets/images/products/guantes-venum-blanco.png", badge: null, outOfStock: false },
+        { id: 19, name: "Guantes Venum Blanco Plata", brand: "Venum", price: 360000, category: "guantes", image: "assets/images/products/guantes-venum-blanco-plata.png", badge: null, outOfStock: false },
+        { id: 20, name: "Guantes Venum Negro", brand: "Venum", price: 310000, category: "guantes", image: "assets/images/products/guantes-venum-negro.png", badge: null, outOfStock: false }
+      ];
+
+      // 2. UTILIDADES
+      const formatPrice = (num) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", minimumFractionDigits: 0 }).format(num);
+      const WHATSAPP_NUM = "573112657848"; // ACTUALIZADO SEGÚN TU PETICIÓN
+      
+      // 3. ESTADO DEL CARRITO
+      let cart = JSON.parse(localStorage.getItem("bs_cart") || "[]");
+
+      // 4. RENDERIZADO DE CATÁLOGO
+      const grid = document.getElementById("productsGrid");
+      const renderCatalog = (filterCategory = "all") => {
+        grid.innerHTML = "";
+        const filtered = filterCategory === "all" ? PRODUCTS : PRODUCTS.filter(p => p.category === filterCategory);
+        
+        filtered.forEach(p => {
+          const badgeHTML = p.badge ? `<span class="product-badge">${p.badge}</span>` : "";
+          
+          // Lógica de Agotado
+          const priceHTML = p.outOfStock 
+            ? `<span class="product-price out-of-stock">AGOTADO</span>` 
+            : `<span class="product-price">${formatPrice(p.price)}</span>`;
+            
+          const btnHTML = p.outOfStock 
+            ? `<button class="add-to-cart disabled" disabled>Sin Stock</button>` 
+            : `<button class="add-to-cart" onclick="window.addToCart(${p.id})">Agregar al Pedido</button>`;
+
+          grid.innerHTML += `
+            <article class="product-card">
+              ${badgeHTML}
+              <div class="product-img">
+                <img src="${p.image}" alt="${p.name}" onerror="this.src='assets/images/fx/fx-boxing-glove-hit.webp'">
+              </div>
+              <div class="product-info">
+                <span class="product-brand">${p.brand}</span>
+                <h3 class="product-title">${p.name}</h3>
+                <div class="price-wrap">
+                  ${priceHTML}
+                </div>
+                ${btnHTML}
+              </div>
+            </article>
+          `;
+        });
+      };
+
+      // 5. FILTROS
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          filterBtns.forEach(b => b.classList.remove("active"));
+          e.target.classList.add("active");
+          renderCatalog(e.target.dataset.filter);
+        });
+      });
+
+      // 6. LÓGICA DE CARRITO
+      window.addToCart = (id) => {
+        const product = PRODUCTS.find(p => p.id === id);
+        if(product.outOfStock) return; // Doble validación de seguridad
+
+        const existing = cart.find(item => item.id === id);
+        if (existing) { existing.qty += 1; } 
+        else { cart.push({ ...product, qty: 1 }); }
+        
+        saveAndRenderCart();
+        playFX("hit");
+        document.getElementById("cartSidebar").classList.add("open");
+        document.getElementById("cartOverlay").classList.add("show");
+      };
+
+      window.updateQty = (id, delta) => {
+        const item = cart.find(i => i.id === id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) { cart = cart.filter(i => i.id !== id); playFX("ko"); }
+        saveAndRenderCart();
+      };
+
+      window.removeFromCart = (id) => {
+        cart = cart.filter(i => i.id !== id);
+        saveAndRenderCart();
+        playFX("ko");
+      };
+
+      // 7. ACTUALIZACIÓN VISUAL DEL CARRITO
+      const saveAndRenderCart = () => {
+        localStorage.setItem("bs_cart", JSON.stringify(cart));
+        
+        // Actualizar burbuja
+        const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+        document.getElementById("cartCount").textContent = totalItems;
+        
+        // Pintar items
+        const container = document.getElementById("cartItemsContainer");
+        if (cart.length === 0) {
+          container.innerHTML = `<div class="empty-cart"><h1 style="font-size:3.5rem; margin-bottom:1rem; opacity:0.3;">🥊</h1><p>Tu arsenal está vacío.</p></div>`;
+          document.getElementById("cartTotalDisplay").textContent = "$0 COP";
+          document.getElementById("checkoutBtn").href = `https://wa.me/${WHATSAPP_NUM}`;
+          return;
+        }
+
+        let totalAmount = 0;
+        container.innerHTML = cart.map(item => {
+          totalAmount += (item.price * item.qty);
+          return `
+            <div class="cart-item">
+              <img src="${item.image}" alt="img" onerror="this.style.display='none'">
+              <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <p>${formatPrice(item.price)}</p>
+                <div class="qty-controls">
+                  <button class="qty-btn" onclick="window.updateQty(${item.id}, -1)">-</button>
+                  <span class="qty-display">${item.qty}</span>
+                  <button class="qty-btn" onclick="window.updateQty(${item.id}, 1)">+</button>
+                </div>
+              </div>
+              <button class="cart-item-remove" onclick="window.removeFromCart(${item.id})">✕</button>
+            </div>
+          `;
+        }).join("");
+
+        document.getElementById("cartTotalDisplay").textContent = formatPrice(totalAmount);
+
+        // Generar enlace WA
+        const textLines = cart.map(i => `- ${i.name} (x${i.qty}) -> ${formatPrice(i.price * i.qty)}`);
+        const waText = encodeURIComponent(`Hola BoxingStore 🥊, confirmo el siguiente armamento:\n\n${textLines.join('\n')}\n\n*TOTAL A PAGAR: ${formatPrice(totalAmount)}*`);
+        document.getElementById("checkoutBtn").href = `https://wa.me/${WHATSAPP_NUM}?text=${waText}`;
+      };
+
+      // 8. EFECTOS ESPECIALES
+      const playFX = (type) => {
+        const fx = document.getElementById(`fx-${type}`);
+        if(fx) {
+          fx.classList.remove("show");
+          void fx.offsetWidth; 
+          fx.classList.add("show");
+          setTimeout(() => fx.classList.remove("show"), 800);
+        }
+      };
+
+      // 9. CONTROLES DE UI (CARRITO / MENÚ)
+      document.getElementById("openCartBtn").addEventListener("click", () => {
+        document.getElementById("cartSidebar").classList.add("open");
+        document.getElementById("cartOverlay").classList.add("show");
+      });
+
+      const closeCart = () => {
+        document.getElementById("cartSidebar").classList.remove("open");
+        document.getElementById("cartOverlay").classList.remove("show");
+      };
+
+      document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+      document.getElementById("cartOverlay").addEventListener("click", closeCart);
+      
+      document.getElementById("clearCartBtn").addEventListener("click", () => {
+        if(cart.length > 0) { cart = []; saveAndRenderCart(); playFX("ko"); }
+      });
+
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("active");
+      });
+
+      document.querySelectorAll(".main-nav a").forEach(link => {
+        link.addEventListener("click", () => document.getElementById("mainNav").classList.remove("active"));
+      });
+
+      // 10. FORMULARIO CONTACTO
+      document.getElementById("contactForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const status = document.getElementById("formStatus");
+        status.textContent = "¡Mensaje recibido! Te contactaremos pronto. 🥊";
+        e.target.reset();
+        setTimeout(() => status.textContent = "", 4000);
+      });
+
+      // 11. INICIALIZACIÓN
+      document.getElementById("yearSpan").textContent = new Date().getFullYear();
+      renderCatalog("all");
+      saveAndRenderCart();
+    });
+  </script>
 </body>
 </html>
