@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>BoxingStore | Equipo de Boxeo Profesional en Colombia</title>
   <meta name="description" content="Guantes, cascos y botas de boxeo premium. El mejor equipo para entrenamiento, técnica y sparring. Envíos a toda Colombia." />
-  <link rel="icon" type="image/svg+xml" href="assets/logo/logo.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/logo.png" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="apple-touch-icon" href="assets/logo/logo.png" />
+  <link rel="icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -399,152 +396,148 @@ header,main,footer,.drawer,.mobnav,.fx{position:relative;z-index:1}
   </aside>
 
   <script>
-"use strict";
-const WA = 573112657848;
-const FALLBACK = "assets/images/fx/fx-boxing-glove-hit.webp";
-const CART_KEY = "boxingstore_cart_v1";
-const fmt = n => new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",minimumFractionDigits:0}).format(n);
-const PRODUCTS=[
-{id:23,name:"Botas Apex Negro Plata",brand:"Apex",price:400000,cat:"botas",img:"assets/images/products/botas-apex-negro-plata.png",badge:"Pro",oos:false,sizes:["38","39","40","41","42","43"]},
-{id:21,name:"Casco Rox Dorado Negro",brand:"Rox",price:400000,cat:"cascos",img:"assets/images/products/casco-rox-dorado-negro.png",badge:"Nuevo",oos:false,sizes:["S","M","L"]},
-{id:22,name:"Casco Rox Negro Dorado",brand:"Rox",price:285000,cat:"cascos",img:"assets/images/products/casco-rox-negro-dorado.png",badge:null,oos:false,sizes:["S","M","L"]},
-{id:1,name:"Guantes Cleto Reyes Azul",brand:"Cleto Reyes",price:1400000,cat:"guantes",img:"assets/images/products/guantes-cleto-reyes-azul.png",badge:"Premium",oos:false,sizes:["12oz","14oz","16oz"]},
-{id:2,name:"Guantes Green Hill Rojo",brand:"Green Hill",price:270000,cat:"guantes",img:"assets/images/products/guantes-green-hill-rojo.png",badge:null,oos:false,sizes:["10oz","12oz","14oz","16oz"]},
-{id:3,name:"Guantes Max MMA Rosa",brand:"Max MMA",price:0,cat:"guantes",img:"assets/images/products/guantes-max-mma-rosa.png",badge:null,oos:true,sizes:["S","M","L"]},
-{id:4,name:"Guantes Piscator Zone Rosa",brand:"Piscator",price:0,cat:"guantes",img:"assets/images/products/guantes-piscator-zone-rosa.png",badge:null,oos:true,sizes:["10oz","12oz","14oz"]},
-{id:5,name:"Guantes Ringside Blanco Rojo",brand:"Ringside",price:380000,cat:"guantes",img:"assets/images/products/guantes-ringside-blanco-rojo.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:6,name:"Guantes Ringside Dorado",brand:"Ringside",price:380000,cat:"guantes",img:"assets/images/products/guantes-ringside-dorado.png",badge:"Más vendido",oos:false,sizes:["12oz","14oz","16oz"]},
-{id:7,name:"Guantes Ringside Dorado Negro",brand:"Ringside",price:380000,cat:"guantes",img:"assets/images/products/guantes-ringside-dorado-negro.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:8,name:"Guantes Ringside Negro",brand:"Ringside",price:380000,cat:"guantes",img:"assets/images/products/guantes-ringside-negro.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:9,name:"Guantes Ringside Negro Blanco",brand:"Ringside",price:360000,cat:"guantes",img:"assets/images/products/guantes-ringside-negro-blanco.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:10,name:"Guantes Ringside Negro Rojo",brand:"Ringside",price:280000,cat:"guantes",img:"assets/images/products/guantes-ringside-negro-rojo.png",badge:null,oos:false,sizes:["10oz","12oz","14oz","16oz"]},
-{id:11,name:"Guantes Ringside Rosa Negro",brand:"Ringside",price:280000,cat:"guantes",img:"assets/images/products/guantes-ringside-rosa-negro.png",badge:null,oos:false,sizes:["10oz","12oz","14oz","16oz"]},
-{id:12,name:"Guantes Ringside Verde Dorado",brand:"Ringside",price:300000,cat:"guantes",img:"assets/images/products/guantes-ringside-verde-dorado.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:13,name:"Guantes Rox Negro Fucsia",brand:"Rox",price:260000,cat:"guantes",img:"assets/images/products/guantes-rox-negro-fucsia.png",badge:null,oos:false,sizes:["10oz","12oz","14oz"]},
-{id:14,name:"Guantes Sanabul Negro",brand:"Sanabul",price:250000,cat:"guantes",img:"assets/images/products/guantes-sanabul-negro.png",badge:null,oos:false,sizes:["10oz","12oz","14oz","16oz"]},
-{id:15,name:"Guantes Twisto Blanco",brand:"Twisto",price:250000,cat:"guantes",img:"assets/images/products/guantes-twisto-blanco.png",badge:null,oos:false,sizes:["10oz","12oz","14oz"]},
-{id:16,name:"Guantes Twisto Negro Blanco",brand:"Twisto",price:250000,cat:"guantes",img:"assets/images/products/guantes-twisto-negro-blanco.png",badge:null,oos:false,sizes:["10oz","12oz","14oz"]},
-{id:17,name:"Guantes Twisto Rojo Blanco",brand:"Twisto",price:250000,cat:"guantes",img:"assets/images/products/guantes-twisto-rojo-blanco.png",badge:null,oos:false,sizes:["10oz","12oz","14oz"]},
-{id:18,name:"Guantes Venum Blanco",brand:"Venum",price:300000,cat:"guantes",img:"assets/images/products/guantes-venum-blanco.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:19,name:"Guantes Venum Blanco Plata",brand:"Venum",price:360000,cat:"guantes",img:"assets/images/products/guantes-venum-blanco-plata.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]},
-{id:20,name:"Guantes Venum Negro",brand:"Venum",price:310000,cat:"guantes",img:"assets/images/products/guantes-venum-negro.png",badge:null,oos:false,sizes:["12oz","14oz","16oz"]}
+'use strict';
+const WA = '573112657848';
+const FALLBACK = 'assets/images/fx/fx-boxing-glove-hit.webp';
+const fmt = n => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(n);
+
+const PRODUCTS = [
+  {id:23,name:'Botas Apex Negro Plata',brand:'Apex',price:400000,cat:'botas',img:'assets/images/products/botas-apex-negro-plata.png',badge:'Pro',oos:false,sizes:['38','39','40','41','42','43']},
+  {id:21,name:'Casco Rox Dorado Negro',brand:'Rox',price:400000,cat:'cascos',img:'assets/images/products/casco-rox-dorado-negro.png',badge:'Nuevo',oos:false,sizes:['S','M','L']},
+  {id:22,name:'Casco Rox Negro Dorado',brand:'Rox',price:285000,cat:'cascos',img:'assets/images/products/casco-rox-negro-dorado.png',badge:null,oos:false,sizes:['S','M','L']},
+  {id:1,name:'Guantes Cleto Reyes Azul',brand:'Cleto Reyes',price:1400000,cat:'guantes',img:'assets/images/products/guantes-cleto-reyes-azul.png',badge:'Premium',oos:false,sizes:['12oz','14oz','16oz']},
+  {id:2,name:'Guantes Green Hill Rojo',brand:'Green Hill',price:270000,cat:'guantes',img:'assets/images/products/guantes-green-hill-rojo.png',badge:null,oos:false,sizes:['10oz','12oz','14oz','16oz']},
+  {id:3,name:'Guantes Max MMA Rosa',brand:'Max MMA',price:0,cat:'guantes',img:'assets/images/products/guantes-max-mma-rosa.png',badge:null,oos:true,sizes:['S','M','L']},
+  {id:4,name:'Guantes Piscator Zone Rosa',brand:'Piscator',price:0,cat:'guantes',img:'assets/images/products/guantes-piscator-zone-rosa.png',badge:null,oos:true,sizes:['10oz','12oz','14oz']},
+  {id:5,name:'Guantes Ringside Blanco Rojo',brand:'Ringside',price:380000,cat:'guantes',img:'assets/images/products/guantes-ringside-blanco-rojo.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:6,name:'Guantes Ringside Dorado',brand:'Ringside',price:380000,cat:'guantes',img:'assets/images/products/guantes-ringside-dorado.png',badge:'Más vendido',oos:false,sizes:['12oz','14oz','16oz']},
+  {id:7,name:'Guantes Ringside Dorado Negro',brand:'Ringside',price:380000,cat:'guantes',img:'assets/images/products/guantes-ringside-dorado-negro.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:8,name:'Guantes Ringside Negro',brand:'Ringside',price:380000,cat:'guantes',img:'assets/images/products/guantes-ringside-negro.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:9,name:'Guantes Ringside Negro Blanco',brand:'Ringside',price:360000,cat:'guantes',img:'assets/images/products/guantes-ringside-negro-blanco.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:10,name:'Guantes Ringside Negro Rojo',brand:'Ringside',price:280000,cat:'guantes',img:'assets/images/products/guantes-ringside-negro-rojo.png',badge:null,oos:false,sizes:['10oz','12oz','14oz','16oz']},
+  {id:11,name:'Guantes Ringside Rosa Negro',brand:'Ringside',price:280000,cat:'guantes',img:'assets/images/products/guantes-ringside-rosa-negro.png',badge:null,oos:false,sizes:['10oz','12oz','14oz']},
+  {id:12,name:'Guantes Ringside Verde Dorado',brand:'Ringside',price:300000,cat:'guantes',img:'assets/images/products/guantes-ringside-verde-dorado.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:13,name:'Guantes Rox Negro Fucsia',brand:'Rox',price:260000,cat:'guantes',img:'assets/images/products/guantes-rox-negro-fucsia.png',badge:null,oos:false,sizes:['10oz','12oz','14oz']},
+  {id:14,name:'Guantes Sanabul Negro',brand:'Sanabul',price:250000,cat:'guantes',img:'assets/images/products/guantes-sanabul-negro.png',badge:null,oos:false,sizes:['10oz','12oz','14oz','16oz']},
+  {id:15,name:'Guantes Twisto Blanco',brand:'Twisto',price:250000,cat:'guantes',img:'assets/images/products/guantes-twisto-blanco.png',badge:null,oos:false,sizes:['10oz','12oz','14oz']},
+  {id:16,name:'Guantes Twisto Negro Blanco',brand:'Twisto',price:250000,cat:'guantes',img:'assets/images/products/guantes-twisto-negro-blanco.png',badge:null,oos:false,sizes:['10oz','12oz','14oz']},
+  {id:17,name:'Guantes Twisto Rojo Blanco',brand:'Twisto',price:250000,cat:'guantes',img:'assets/images/products/guantes-twisto-rojo-blanco.png',badge:null,oos:false,sizes:['10oz','12oz','14oz']},
+  {id:18,name:'Guantes Venum Blanco',brand:'Venum',price:300000,cat:'guantes',img:'assets/images/products/guantes-venum-blanco.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:19,name:'Guantes Venum Blanco Plata',brand:'Venum',price:360000,cat:'guantes',img:'assets/images/products/guantes-venum-blanco-plata.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']},
+  {id:20,name:'Guantes Venum Negro',brand:'Venum',price:310000,cat:'guantes',img:'assets/images/products/guantes-venum-negro.png',badge:null,oos:false,sizes:['12oz','14oz','16oz']}
 ];
 
-let currentFilter="all", selectedSizes={}, cart=[];
+let currentFilter = 'all';
+let selectedSizes = {};
+let cart = [];
 
-// ── PERSISTENCIA localStorage ──────────────────────────────
-function loadCart(){
-  try{ const s=localStorage.getItem(CART_KEY); cart=s?JSON.parse(s):[]; }
-  catch(e){ cart=[]; }
+const grid = document.getElementById('productGrid');
+const filters = document.getElementById('filters');
+const drawer = document.getElementById('drawer');
+const backdrop = document.getElementById('backdrop');
+const drawerBody = document.getElementById('drawerBody');
+const drawerTotal = document.getElementById('drawerTotal');
+const waOrder = document.getElementById('waOrder');
+const cartNum = document.getElementById('cartNum');
+
+function renderProducts(filter='all'){
+  const list = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
+  grid.innerHTML = list.map(p => {
+    const activeSize = selectedSizes[p.id] || '';
+    const sizeHtml = (p.sizes || []).map(size => `
+      <button class="sizechip ${activeSize===size?'active':''}" ${p.oos?'disabled':''} onclick="selectSize(${p.id}, '${size}')">${size}</button>
+    `).join('');
+    const helper = p.oos ? 'Producto sin stock.' : activeSize ? `Talla elegida: ${activeSize}` : 'Selecciona una talla antes de agregar.';
+    return `
+      <article class="card">
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        ${p.oos ? `<span class="badge2">Agotado</span>` : ''}
+        <div class="pimg"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK}'"></div>
+        <div class="pinfo">
+          <div class="brandline">${p.brand}</div>
+          <h3 class="pname">${p.name}</h3>
+          <div class="pprice ${p.oos ? 'out' : ''}">${p.oos ? 'Sin stock' : fmt(p.price)}</div>
+          <div class="sizewrap">
+            <div class="sizelbl">Talla</div>
+            <div class="sizegrid">${sizeHtml}</div>
+            <div class="helper ${!p.oos && !activeSize ? 'warn' : ''}">${helper}</div>
+          </div>
+          <button class="addbtn" ${p.oos ? 'disabled' : ''} onclick="addToCart(${p.id})">${p.oos ? 'Sin stock' : 'Agregar al pedido'}</button>
+        </div>
+      </article>`;
+  }).join('');
 }
-function saveCart(){
-  try{ localStorage.setItem(CART_KEY,JSON.stringify(cart)); }
-  catch(e){}
+
+function selectSize(id,size){
+  selectedSizes[id]=size;
+  renderProducts(currentFilter);
 }
+window.selectSize = selectSize;
 
-// ── RENDER PRODUCTOS ──────────────────────────────────────
-const grid=document.getElementById("productGrid");
-const filters=document.getElementById("filters");
-const drawer=document.getElementById("drawer");
-const backdrop=document.getElementById("backdrop");
-const drawerBody=document.getElementById("drawerBody");
-const drawerTotal=document.getElementById("drawerTotal");
-const waOrder=document.getElementById("waOrder");
-const cartNum=document.getElementById("cartNum");
-
-function renderProducts(filter){
-  filter=filter||"all";
-  const list=filter==="all"?PRODUCTS:PRODUCTS.filter(p=>p.cat===filter);
-  grid.innerHTML=list.map(p=>{
-    const active=selectedSizes[p.id];
-    const sizeHtml=p.sizes.map(sz=>`<button class="sizechip${active===sz?" active":""}"${p.oos?" disabled":""} onclick="selectSize(${p.id},'${sz}')">${sz}</button>`).join("");
-    const helperCls=(!p.oos&&!active)?" warn":"";
-    const helperTxt=p.oos?"Producto sin stock.":active?`Talla elegida: ${active}`:"Selecciona una talla antes de agregar.";
-    return `<article class="card">
-      ${p.badge?`<span class="badge">${p.badge}</span>`:""}
-      ${p.oos?`<span class="badge2">Agotado</span>`:""}
-      <div class="pimg"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK}'"></div>
-      <div class="pinfo">
-        <div class="brandline">${p.brand}</div>
-        <h3 class="pname">${p.name}</h3>
-        <div class="pprice${p.oos?" out":""}">${p.oos?"Sin stock":fmt(p.price)}</div>
-        <div class="sizewrap"><div class="sizelbl">Talla</div><div class="sizegrid">${sizeHtml}</div></div>
-        <div class="helper${helperCls}">${helperTxt}</div>
-        <button class="addbtn"${p.oos?" disabled":""} onclick="addToCart(${p.id})">${p.oos?"Sin stock":"Agregar al pedido"}</button>
-      </div>
-    </article>`;
-  }).join("");
-}
-function selectSize(id,sz){ selectedSizes[id]=sz; renderProducts(currentFilter); }
-window.selectSize=selectSize;
-
-filters.addEventListener("click",e=>{
-  const btn=e.target.closest("[data-filter]");
-  if(!btn)return;
-  document.querySelectorAll(".fbtn").forEach(x=>x.classList.remove("active"));
-  btn.classList.add("active");
-  currentFilter=btn.dataset.filter;
+filters.addEventListener('click', e => {
+  const btn = e.target.closest('[data-filter]');
+  if(!btn) return;
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.filter;
   renderProducts(currentFilter);
 });
 
 function filterTo(cat){
-  currentFilter=cat;
-  document.querySelectorAll(".fbtn").forEach(b=>b.classList.toggle("active",b.dataset.filter===cat));
+  currentFilter = cat;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('active', b.dataset.filter===cat));
   renderProducts(cat);
-  document.getElementById("productos").scrollIntoView({behavior:"smooth"});
+  document.getElementById('productos').scrollIntoView({behavior:'smooth'});
 }
-window.filterTo=filterTo;
+window.filterTo = filterTo;
 
-document.querySelectorAll(".cat").forEach(el=>el.addEventListener("keydown",e=>{
-  if(e.key==="Enter"||e.key===" "){e.preventDefault();el.click();}
+document.querySelectorAll('.cat').forEach(el => el.addEventListener('keydown', e => {
+  if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); el.click(); }
 }));
 
-// ── CARRITO ───────────────────────────────────────────────
 function addToCart(id){
-  const p=PRODUCTS.find(x=>x.id===id);
-  if(!p||p.oos)return;
-  const sz=selectedSizes[id];
-  if(!sz){alert("Selecciona una talla antes de agregar este producto.");return;}
-  const item=cart.find(x=>x.id===id&&x.size===sz);
-  if(item)item.qty+=1;
-  else cart.push({id:p.id,name:p.name,brand:p.brand,price:p.price,img:p.img,size:sz,qty:1});
-  saveCart();
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p || p.oos) return;
+  const size = selectedSizes[id];
+  if(!size){ alert('Selecciona una talla antes de agregar este producto.'); return; }
+  const item = cart.find(x=>x.id===id && x.size===size);
+  if(item) item.qty += 1;
+  else cart.push({id:p.id,name:p.name,brand:p.brand,price:p.price,img:p.img,size,qty:1});
   syncCart();
-  playFX("hit");
+  playFX('hit');
   openCart();
 }
-window.addToCart=addToCart;
+window.addToCart = addToCart;
 
-function changeQty(id,sz,delta){
-  const item=cart.find(x=>x.id===id&&x.size===sz);
-  if(!item)return;
-  item.qty+=delta;
-  if(item.qty<=0)cart=cart.filter(x=>!(x.id===id&&x.size===sz));
-  saveCart();
-  playFX("ko");
+function changeQty(id,size,delta){
+  const item = cart.find(x=>x.id===id && x.size===size);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0){ cart = cart.filter(x=>!(x.id===id && x.size===size)); playFX('ko'); }
   syncCart();
 }
-window.changeQty=changeQty;
+window.changeQty = changeQty;
 
-function removeItem(id,sz){
-  cart=cart.filter(x=>!(x.id===id&&x.size===sz));
-  saveCart();
-  playFX("ko");
+function removeItem(id,size){
+  cart = cart.filter(x=>!(x.id===id && x.size===size));
+  playFX('ko');
   syncCart();
 }
-window.removeItem=removeItem;
+window.removeItem = removeItem;
 
 function syncCart(){
-  const count=cart.reduce((s,i)=>s+i.qty,0);
-  const total=cart.reduce((s,i)=>s+i.qty*i.price,0);
-  cartNum.textContent=count;
-  drawerTotal.textContent=fmt(total);
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  const total = cart.reduce((s,i)=>s+i.qty*i.price,0);
+  cartNum.textContent = count;
+  drawerTotal.textContent = fmt(total);
+
   if(!cart.length){
-    drawerBody.innerHTML=`<div class="empty"><div><div class="big">🥊</div><p>Tu carrito está vacío. Elige tu equipo y selecciona la talla ideal.</p></div></div>`;
-    waOrder.href=`https://wa.me/${WA}`;
+    drawerBody.innerHTML = '<div class="empty"><div><div class="big">🥊</div><p>Tu carrito está vacío. Elige tu equipo y selecciona la talla ideal.</p></div></div>';
+    waOrder.href = `https://wa.me/${WA}`;
     return;
   }
-  drawerBody.innerHTML=cart.map(i=>`
+
+  drawerBody.innerHTML = cart.map(i => `
     <div class="item">
       <div class="itemimg"><img src="${i.img}" alt="${i.name}" onerror="this.onerror=null;this.src='${FALLBACK}'"></div>
       <div>
@@ -552,62 +545,57 @@ function syncCart(){
         <div class="meta2">Talla ${i.size}</div>
         <div class="price">${fmt(i.price)}</div>
         <div class="qty">
-          <button class="qbtn" onclick="changeQty(${i.id},'${i.size}',-1)">−</button>
+          <button class="qbtn" onclick="changeQty(${i.id}, '${i.size}', -1)">−</button>
           <span>${i.qty}</span>
-          <button class="qbtn" onclick="changeQty(${i.id},'${i.size}',1)">+</button>
+          <button class="qbtn" onclick="changeQty(${i.id}, '${i.size}', 1)">+</button>
         </div>
       </div>
-      <button class="rm" onclick="removeItem(${i.id},'${i.size}')">×</button>
-    </div>`).join("");
-  const lines=cart.map(i=>`- ${i.name} | Talla: ${i.size} | Cant: ${i.qty} | Subtotal: ${fmt(i.qty*i.price)}`).join("%0A");
-  waOrder.href=`https://wa.me/${WA}?text=${encodeURIComponent("Hola BoxingStore, quiero confirmar este pedido:")}%0A${lines}%0A%0A${encodeURIComponent("Total: "+fmt(total))}`;
+      <button class="rm" onclick="removeItem(${i.id}, '${i.size}')">✕</button>
+    </div>
+  `).join('');
+
+  const lines = cart.map(i => `- ${i.name} | Talla: ${i.size} | Cantidad: ${i.qty} | Subtotal: ${fmt(i.qty*i.price)}`).join('\n');
+  const msg = encodeURIComponent(`Hola BoxingStore 🥊, quiero confirmar este pedido:\n\n${lines}\n\nTOTAL: ${fmt(total)}`);
+  waOrder.href = `https://wa.me/${WA}?text=${msg}`;
 }
 
-// ── DRAWER / NAV ─────────────────────────────────────────
-function openCart(){drawer.classList.add("on");backdrop.classList.add("on");document.body.style.overflow="hidden";}
-function closeCart(){drawer.classList.remove("on");backdrop.classList.remove("on");document.body.style.overflow="";}
-document.getElementById("openCart").addEventListener("click",openCart);
-document.getElementById("closeCart").addEventListener("click",closeCart);
-backdrop.addEventListener("click",closeCart);
-document.getElementById("clearCart").addEventListener("click",()=>{if(!cart.length)return;cart=[];saveCart();syncCart();playFX("ko");});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart();});
+function openCart(){ drawer.classList.add('on'); backdrop.classList.add('on'); document.body.style.overflow='hidden'; }
+function closeCart(){ drawer.classList.remove('on'); backdrop.classList.remove('on'); document.body.style.overflow=''; }
+document.getElementById('openCart').addEventListener('click', openCart);
+document.getElementById('closeCart').addEventListener('click', closeCart);
+backdrop.addEventListener('click', closeCart);
+document.getElementById('clearCart').addEventListener('click', ()=>{ if(!cart.length) return; cart=[]; syncCart(); playFX('ko'); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeCart(); });
 
-const menuBtn=document.getElementById("menuBtn");
-const mobnav=document.getElementById("mobnav");
-menuBtn.addEventListener("click",()=>{
-  const open=mobnav.classList.toggle("open");
-  menuBtn.classList.toggle("open",open);
-  menuBtn.setAttribute("aria-expanded",open?"true":"false");
+const menuBtn = document.getElementById('menuBtn');
+const mobnav = document.getElementById('mobnav');
+menuBtn.addEventListener('click', ()=>{
+  const open = mobnav.classList.toggle('open');
+  menuBtn.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
-mobnav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
-  mobnav.classList.remove("open");
-  menuBtn.classList.remove("open");
-  menuBtn.setAttribute("aria-expanded","false");
-}));
+mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobnav.classList.remove('open');menuBtn.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');}));
 
 function playFX(type){
-  const el=document.getElementById("fx-"+type);
-  if(!el)return;
-  el.classList.remove("on");
+  const el = document.getElementById(`fx-${type}`);
+  if(!el) return;
+  el.classList.remove('on');
   void el.offsetWidth;
-  el.classList.add("on");
-  setTimeout(()=>el.classList.remove("on"),900);
+  el.classList.add('on');
+  setTimeout(()=>el.classList.remove('on'),900);
 }
 
-document.getElementById("contactForm").addEventListener("submit",e=>{
+document.getElementById('contactForm').addEventListener('submit', e=>{
   e.preventDefault();
-  const s=document.getElementById("formStatus");
-  s.textContent="Mensaje enviado. Te contactaremos muy pronto.";
+  const s = document.getElementById('formStatus');
+  s.textContent = '¡Mensaje enviado! Te contactaremos muy pronto. 🥊';
   e.target.reset();
-  setTimeout(()=>s.textContent="",5000);
+  setTimeout(()=>s.textContent='',5000);
 });
 
-document.getElementById("year").textContent=new Date().getFullYear();
-
-// ── INIT (cargar carrito guardado primero) ─────────────────
-loadCart();
-renderProducts("all");
+document.getElementById('year').textContent = new Date().getFullYear();
+renderProducts();
 syncCart();
-</script>
+  </script>
 </body>
 </html>
